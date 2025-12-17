@@ -15,7 +15,7 @@ Designed for themes with modular source structures like [Nox](https://github.com
    - Example mapping file: https://github.com/SyndiShanX/Update-Classes/blob/main/Changes.txt
 4. Run with: `node RDCU.js`
 
-## Change list format
+## Class mapping file format
 The file should contain pairs of lines as follows:
 ```
 OldClass
