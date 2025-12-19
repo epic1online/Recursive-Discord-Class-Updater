@@ -10,10 +10,8 @@ Updates Discord classes across multiple files in modular theme codebases. Unlike
 Designed for themes with modular source structures like [Nox](https://github.com/zerebos/Nox).
 
 ## Usage
-1. Set `THEME_ROOT_DIRECTORY` to your theme's root folder
-2. Set `CHANGE_LIST` to the local path of your class mapping file
-   - Example mapping file: https://github.com/SyndiShanX/Update-Classes/blob/main/Changes.txt
-4. Run with: `node RDCU.js`
+`node RDCU.js <MAPPING_FILE PATH> <THEME_ROOT_FOLDER PATH>`
+- Example mapping file: https://github.com/SyndiShanX/Update-Classes/blob/main/Changes.txt
 
 ## Class mapping file format
 The file should contain pairs of lines as follows:

@@ -8,9 +8,8 @@
  * Unlike single-file update utilities, this recursively processes all files in a theme's root directory.
  * 
  * Usage:
- * 1. Set THEME_ROOT_DIRECTORY to your theme's root folder
- * 2. Set CHANGE_LIST to the path of your class mapping file (example mapping file: https://github.com/SyndiShanX/Update-Classes/blob/main/Changes.txt)
- * 3. Run with: node RDCU.js
+ * node RDCU.js <MAPPING_FILE PATH> <THEME_ROOT_FOLDER PATH>
+ *  - Example mapping file: https://github.com/SyndiShanX/Update-Classes/blob/main/Changes.txt
  * 
  * Change list format:
  * The file should contain pairs of lines, the old class on one line, followed by the new class on the next line.
@@ -21,18 +20,18 @@
 const fs = require('fs');
 const path = require('path');
 
-const THEME_ROOT_DIRECTORY = './src';
-const CLASS_MAP = 'Changes.txt'
+const CLASS_MAP = process.argv[2] ?? 'Changes.txt'
+const THEME_ROOT_DIRECTORY = process.argv[3] ?? './src';
 
 const classChangeList = fs.readFileSync(CLASS_MAP, 'utf8');
 const lines = classChangeList.split(/\r?\n/).map(line => line.trim()).filter(Boolean);
 
 const classes = {};
-for (let i = 0; i < lines.length - 1; i+=2) {
-    classes[lines[i]] = lines[i+1];
+while (lines.length > 0) {
+    classes[lines.shift()] = lines.shift();
 }
 
-const getAllFiles = function(dirPath, fileList = []) {
+function getAllFiles(dirPath, fileList = []) {
     fs.readdirSync(dirPath, { withFileTypes: true }).forEach(file => {
         const filePath = path.join(dirPath, file.name);
         if (file.isDirectory()) {
