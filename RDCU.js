@@ -26,10 +26,12 @@ const THEME_ROOT_DIRECTORY = process.argv[3] ?? './src';
 const classChangeList = fs.readFileSync(CLASS_MAP, 'utf8');
 const lines = classChangeList.split(/\r?\n/).map(line => line.trim()).filter(Boolean);
 
+console.log('creating class map');
 const classes = {};
 while (lines.length > 0) {
     classes[lines.shift()] = lines.shift();
 }
+console.log('done creating class map');
 
 function getAllFiles(dirPath, fileList = []) {
     fs.readdirSync(dirPath, { withFileTypes: true }).forEach(file => {
@@ -48,7 +50,7 @@ const fileArray = getAllFiles(THEME_ROOT_DIRECTORY);
 for (const file of fileArray) {
     fs.readFile(file, 'utf8', function (err, data) {
         if (err) return console.error(`Error reading ${file}:`, err.message);
-        console.log("starting " + file);
+        // console.log(`starting ${file}`);
 
         let result = data;
         for (const [oldClass, newClass] of Object.entries(classes)) {
@@ -57,7 +59,7 @@ for (const file of fileArray) {
         
         fs.writeFile(file, result, 'utf8', function (err) {
             if (err) return console.error(`Error writing ${file}:`, err.message);
-            console.log(`Wrote to ${file}`);
+            // console.log(`Wrote to ${file}`);
         });
     });
 }
